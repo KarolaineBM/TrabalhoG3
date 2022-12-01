@@ -59,7 +59,7 @@
               </div>
             </div>
           </q-carousel-slide>
-          <q-carousel-slide :name="4" img-src="~assets/carrosel4.jpg">
+          <q-carousel-slide :name="4" img-src="~assets/carrosels5.jpg">
             <div class="row absolute-center column">
               <div class="col-md q-ml-sm q-mt-xl q-pt-xl"></div>
               <div class="col-md q-ml-sm q-mt-xl q-pt-xl">
