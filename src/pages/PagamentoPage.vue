@@ -173,13 +173,7 @@
             </q-input>
           </div>
           <div class="col-md" v-if="fretev">
-            <q-input
-              disable
-              outlined
-              label="Frete"
-              v-model="frete"
-              dense
-            >
+            <q-input disable outlined label="Frete" v-model="frete" dense>
             </q-input>
           </div>
           <div class="col-md-1 q-mt-xs">
@@ -284,7 +278,7 @@
             >
             </q-input>
           </div>
-          <div v-if="valorv && boletov || pixv" class="col-md-1 q-mt-xs">
+          <div v-if="(valorv && boletov) || pixv" class="col-md-1 q-mt-xs">
             <q-btn
               v-show="!travaPag"
               class="q-ml-xs"
@@ -298,7 +292,7 @@
             <q-btn
               :disable="travaPag"
               class="q-ml-sm"
-              v-show="!travaPag && pixv || boletov"
+              v-show="(!travaPag && pixv) || boletov"
               size="sm"
               round
               @click="metodoTravaPagCliente()"
@@ -398,7 +392,7 @@
       <div
         class="row justify-center full-height full-width text-center q-mt-xl q-mb-md"
       >
-        <div class="col-md" v-if="travaInfo && travaEnd && travaPag" >
+        <div class="col-md" v-if="travaInfo && travaEnd && travaPag">
           <q-btn
             class="full-width"
             color="green"
@@ -409,165 +403,189 @@
         </div>
       </div>
       <q-dialog v-model="dialogPixTel" persistent>
-      <q-card class="q-pa-md" style="width: 700px; max-width: 80vw">
-        <div class="row column justify-center text-center full-height full-width">
-          <div class="flex justify-center">
-                  <span class="text-h6 text-weight-bold q-mb-md">
-                   PIX Telefone
-                  </span>
-                  <a href="https://api.whatsapp.com/send?phone=5511974058218">
-                    <img
-                      src="~assets/whatsapp-logo2.png"
-                      style="width: 35px; height: auto"
-                  /></a>
+        <q-card class="q-pa-md" style="width: 700px; max-width: 80vw">
+          <div
+            class="row column justify-center text-center full-height full-width"
+          >
+            <div class="flex justify-center">
+              <span class="text-h6 text-weight-bold q-mb-md">
+                PIX Telefone
+              </span>
+              <a href="https://api.whatsapp.com/send?phone=5511974058218">
+                <img
+                  src="~assets/whatsapp-logo2.png"
+                  style="width: 35px; height: auto"
+              /></a>
+            </div>
+            <div class="col-md">
+              <span class="text-subtittle2 text-weight-bold">
+                <b style="color: #ff3333">Chave Pix:</b>
+                &nbsp;<a
+                  style="text-decoration: none; color: black"
+                  href="https://api.whatsapp.com/send?phone=5511974058218"
+                  >+55 (11) 97405-8218</a
+                >
+              </span>
+            </div>
+
+            <div class="col-md q-mt-md">
+              <q-card-section class="q-pt-none">
+                <div class="text-caption text-grey">
+                  <b style="color: #ff3333">Sua compra foi efetuada</b>,
+                  atualmente estamos aguardando a confirmação de seu pagamento:
+                  <b style="color: #ff3333">PIX - Telefone</b>, obrigado pela
+                  preferência!.
                 </div>
-          <div class="col-md">
-            <span class="text-subtittle2 text-weight-bold">
-                  <b style="color: #ff3333">Chave Pix:</b>
-                  &nbsp;<a
-                    style="text-decoration: none; color: black"
-                    href="https://api.whatsapp.com/send?phone=5511974058218"
-                    >+55 (11) 97405-8218</a
-                  >
-                  </span>
+              </q-card-section>
+            </div>
+            <div class="col-md-2 q-mt-md">
+              <q-btn
+                icon="local_mall"
+                color="primary"
+                no-caps
+                to="/pagpage"
+                label="Voltar"
+              ></q-btn>
+            </div>
           </div>
+        </q-card>
+      </q-dialog>
+      <q-dialog v-model="dialogPixQR" persistent>
+        <q-card class="q-pa-md" style="width: 700px; max-width: 80vw">
+          <div
+            class="row column justify-center text-center full-height full-width"
+          >
+            <div class="flex justify-center">
+              <span class="text-h6 text-weight-bold q-mb-md">
+                PIX QR Code
+              </span>
+            </div>
+            <div class="col-md">
+              <img src="~assets/qrcode.png" />
+            </div>
 
-          <div class="col-md  q-mt-md">
-            <q-card-section class="q-pt-none">
+            <div class="col-md q-mt-lg">
+              <q-card-section class="q-pt-none">
                 <div class="text-caption text-grey">
-               <b style="color: #ff3333">Sua compra foi efetuada</b>, atualmente estamos aguardando a confirmação de seu pagamento: <b style="color: #ff3333">PIX - Telefone</b>, obrigado pela preferência!.
+                  <b style="color: #ff3333">Sua compra foi efetuada</b>,
+                  atualmente estamos aguardando a confirmação de seu pagamento:
+                  <b style="color: #ff3333">PIX - QR Code</b>, assim que
+                  possível entraremos em contato via e-mail, atualizado-o sobre
+                  a compra, dúvidas ou suporte basta acessar o fale conosco,
+                  obrigado pela preferência!.
                 </div>
               </q-card-section>
             </div>
-            <div class="col-md-2  q-mt-md">
+            <div class="col-md-2 q-mt-md">
               <q-btn
-                  icon="local_mall"
-                  color="primary"
-                  no-caps
-                  to="/pagpage"
-                  label="Voltar"
-                ></q-btn>
+                icon="local_mall"
+                color="primary"
+                no-caps
+                to="/pagpage"
+                label="Voltar"
+              ></q-btn>
             </div>
-        </div>
-      </q-card>
-    </q-dialog>
-    <q-dialog v-model="dialogPixQR" persistent>
-      <q-card class="q-pa-md" style="width: 700px; max-width: 80vw">
-        <div class="row column justify-center text-center full-height full-width">
-          <div class="flex justify-center">
-                  <span class="text-h6 text-weight-bold q-mb-md">
-                   PIX QR Code
-                  </span>
-
-                </div>
-          <div class="col-md">
-            <img src="~assets/qrcode.png">
           </div>
+        </q-card>
+      </q-dialog>
+      <q-dialog v-model="dialogCredito" persistent>
+        <q-card class="q-pa-md" style="width: 700px; max-width: 80vw">
+          <div
+            class="row column justify-center text-center full-height full-width"
+          >
+            <div class="flex justify-center">
+              <span class="text-h6 text-weight-bold q-mb-md">
+                Cartão de Crédito: {{ pagamento.tipo_pagamento }}
+              </span>
+            </div>
 
-          <div class="col-md  q-mt-lg">
-            <q-card-section class="q-pt-none">
+            <div class="col-md q-mt-md">
+              <q-card-section class="q-pt-none">
                 <div class="text-caption text-grey">
-               <b style="color: #ff3333">Sua compra foi efetuada</b>, atualmente estamos aguardando a confirmação de seu pagamento: <b style="color: #ff3333">PIX - QR Code</b>, assim que possível entraremos em contato via e-mail, atualizado-o sobre a compra, dúvidas ou suporte basta acessar o fale conosco, obrigado pela preferência!.
+                  <b style="color: #ff3333">Sua compra foi efetuada</b>,
+                  atualmente estamos aguardando a confirmação de seu pagamento:
+                  <b style="color: #ff3333"
+                    >Cartão de Crédito - {{ pagamento.tipo_pagamento }}</b
+                  >, obrigado pela preferência!.
                 </div>
               </q-card-section>
             </div>
-            <div class="col-md-2  q-mt-md">
+            <div class="col-md-2 q-mt-md">
               <q-btn
-                  icon="local_mall"
-                  color="primary"
-                  no-caps
-                  to="/pagpage"
-                  label="Voltar"
-                ></q-btn>
+                icon="local_mall"
+                color="primary"
+                no-caps
+                to="/pagpage"
+                label="Voltar"
+              ></q-btn>
             </div>
-        </div>
-      </q-card>
-    </q-dialog>
-    <q-dialog v-model="dialogCredito" persistent>
-      <q-card class="q-pa-md" style="width: 700px; max-width: 80vw">
-        <div class="row column justify-center text-center full-height full-width">
-          <div class="flex justify-center">
-                  <span class="text-h6 text-weight-bold q-mb-md">
-                    Cartão de Crédito: {{pagamento.tipo_pagamento}}
-                  </span>
-                </div>
+          </div>
+        </q-card>
+      </q-dialog>
+      <q-dialog v-model="dialogDebito" persistent>
+        <q-card class="q-pa-md" style="width: 700px; max-width: 80vw">
+          <div
+            class="row column justify-center text-center full-height full-width"
+          >
+            <div class="flex justify-center">
+              <span class="text-h6 text-weight-bold q-mb-md"> Débito </span>
+            </div>
 
-
-          <div class="col-md  q-mt-md">
-            <q-card-section class="q-pt-none">
+            <div class="col-md q-mt-md">
+              <q-card-section class="q-pt-none">
                 <div class="text-caption text-grey">
-               <b style="color: #ff3333">Sua compra foi efetuada</b>, atualmente estamos aguardando a confirmação de seu pagamento: <b style="color: #ff3333">Cartão de Crédito - {{pagamento.tipo_pagamento}}</b>, obrigado pela preferência!.
+                  <b style="color: #ff3333">Sua compra foi efetuada</b>,
+                  atualmente estamos aguardando a confirmação de seu pagamento:
+                  <b style="color: #ff3333">débito</b>, obrigado pela
+                  preferência!.
                 </div>
               </q-card-section>
             </div>
-            <div class="col-md-2  q-mt-md">
+            <div class="col-md-2 q-mt-md">
               <q-btn
-                  icon="local_mall"
-                  color="primary"
-                  no-caps
-                  to="/pagpage"
-                  label="Voltar"
-                ></q-btn>
+                icon="local_mall"
+                color="primary"
+                no-caps
+                to="/pagpage"
+                label="Voltar"
+              ></q-btn>
             </div>
-        </div>
-      </q-card>
-    </q-dialog>
-    <q-dialog v-model="dialogDebito" persistent>
-      <q-card class="q-pa-md" style="width: 700px; max-width: 80vw">
-        <div class="row column justify-center text-center full-height full-width">
-          <div class="flex justify-center">
-                  <span class="text-h6 text-weight-bold q-mb-md">
-                    Débito
-                  </span>
-                </div>
-
-
-          <div class="col-md  q-mt-md">
-            <q-card-section class="q-pt-none">
+          </div>
+        </q-card>
+      </q-dialog>
+      <q-dialog v-model="dialogBoleto" persistent>
+        <q-card class="q-pa-md" style="width: 700px; max-width: 80vw">
+          <div
+            class="row column justify-center text-center full-height full-width"
+          >
+            <div class="flex justify-center">
+              <span class="text-h6 text-weight-bold q-mb-md">
+                Boleto Bancário
+              </span>
+            </div>
+            <div class="col-md q-mt-md">
+              <q-card-section class="q-pt-none">
                 <div class="text-caption text-grey">
-               <b style="color: #ff3333">Sua compra foi efetuada</b>, atualmente estamos aguardando a confirmação de seu pagamento: <b style="color: #ff3333">débito</b>, obrigado pela preferência!.
+                  <b style="color: #ff3333">Sua compra foi efetuada</b>,
+                  atualmente estamos aguardando a confirmação de seu pagamento:
+                  <b style="color: #ff3333"
+                    >boleto Bancário enviado ao seu e-mail</b
+                  >, obrigado pela preferência!.
                 </div>
               </q-card-section>
             </div>
-            <div class="col-md-2  q-mt-md">
+            <div class="col-md-2 q-mt-md">
               <q-btn
-                  icon="local_mall"
-                  color="primary"
-                  no-caps
-                  to="/pagpage"
-                  label="Voltar"
-                ></q-btn>
+                icon="local_mall"
+                color="primary"
+                no-caps
+                to="/pagpage"
+                label="Voltar"
+              ></q-btn>
             </div>
-        </div>
-      </q-card>
-    </q-dialog>
-    <q-dialog v-model="dialogBoleto" persistent>
-      <q-card class="q-pa-md" style="width: 700px; max-width: 80vw">
-        <div class="row column justify-center text-center full-height full-width">
-          <div class="flex justify-center">
-                  <span class="text-h6 text-weight-bold q-mb-md">
-                   Boleto Bancário
-                  </span>
-                </div>
-          <div class="col-md  q-mt-md">
-            <q-card-section class="q-pt-none">
-                <div class="text-caption text-grey">
-               <b style="color: #ff3333">Sua compra foi efetuada</b>, atualmente estamos aguardando a confirmação de seu pagamento: <b style="color: #ff3333">boleto Bancário enviado ao seu e-mail</b>, obrigado pela preferência!.
-                </div>
-              </q-card-section>
-            </div>
-            <div class="col-md-2  q-mt-md">
-              <q-btn
-                  icon="local_mall"
-                  color="primary"
-                  no-caps
-                  to="/pagpage"
-                  label="Voltar"
-                ></q-btn>
-            </div>
-        </div>
-      </q-card>
-    </q-dialog>
+          </div>
+        </q-card>
+      </q-dialog>
     </q-form>
   </q-page>
 </template>
@@ -579,11 +597,11 @@ export default defineComponent({
   setup() {
     // Váriaveis
     const $q = useQuasar();
-    const dialogPixTel = ref(false)
-    const dialogPixQR = ref(false)
-    const dialogDebito = ref(false)
-    const dialogCredito = ref(false)
-    const dialogBoleto = ref(false)
+    const dialogPixTel = ref(false);
+    const dialogPixQR = ref(false);
+    const dialogDebito = ref(false);
+    const dialogCredito = ref(false);
+    const dialogBoleto = ref(false);
     const pagarv = ref(false);
     const travaInfo = ref(false);
     const travaEnd = ref(false);
@@ -596,7 +614,7 @@ export default defineComponent({
     const valorv = ref(false);
     const boletov = ref(false);
     const fretev = ref(false);
-    const frete = ref("R$ 11,50")
+    const frete = ref("R$ 11,50");
     const valor_total = ref("");
 
     const form = ref({
@@ -735,8 +753,7 @@ export default defineComponent({
         progress: true,
         html: true,
         position: "top",
-        message:
-          "Selecione o tipo de pagamento!",
+        message: "Selecione o tipo de pagamento!",
       });
     };
     const MsgSucesso = () => {
@@ -796,7 +813,7 @@ export default defineComponent({
     };
     const buscarCEP = async () => {
       if (end.value.cep.length == 8) {
-        const url = `http://viacep.com.br/ws/${end.value.cep}/json/`;
+        const url = `https://viacep.com.br/ws/${end.value.cep}/json/`;
         const dados = await fetch(url);
         end.value = await dados.json();
         fretev.value = true;
@@ -952,15 +969,18 @@ export default defineComponent({
       // Se for PIX
       if (pixv.value) {
         console.log(pagamento.value.tipo_pagamento_pix);
-        if (pagamento.value.tipo_pagamento_pix == "qr" || pagamento.value.tipo_pagamento_pix == "tel") {
+        if (
+          pagamento.value.tipo_pagamento_pix == "qr" ||
+          pagamento.value.tipo_pagamento_pix == "tel"
+        ) {
           travaPag.value = true;
-        }else{
-          MsgSelecionePag()
-return;
+        } else {
+          MsgSelecionePag();
+          return;
         }
       } // se for Boleto
       else if (boletov.value) {
-      travaPag.value = true
+        travaPag.value = true;
       } // se for Credito
       else if (creditov.value) {
         if (
@@ -996,28 +1016,32 @@ return;
         cancel: true,
         persistent: true,
       }).onOk(() => {
-       metodoComprar();
-
+        metodoComprar();
       });
     };
     const metodoComprar = () => {
-  if(pagamento.value.forma_pagamento == "1"){
-    MsgSucessoCompraCredito()
-dialogCredito.value = true
-  }else if(pagamento.value.forma_pagamento == "2"){
-MsgSucessoCompraDebito()
-dialogDebito.value = true
-  }else if(pagamento.value.forma_pagamento == "3" && pagamento.value.tipo_pagamento_pix == "tel"){
-MsgSucessoCompraPIX()
-dialogPixTel.value = true
-  }else if(pagamento.value.forma_pagamento == "3" && pagamento.value.tipo_pagamento_pix == "qr"){
-MsgSucessoCompraPIX()
-dialogPixQR.value = true
-  }
-  else if(pagamento.value.forma_pagamento == "4"){
-MsgSucessoCompraBoleto()
-dialogBoleto.value=true
-  }
+      if (pagamento.value.forma_pagamento == "1") {
+        MsgSucessoCompraCredito();
+        dialogCredito.value = true;
+      } else if (pagamento.value.forma_pagamento == "2") {
+        MsgSucessoCompraDebito();
+        dialogDebito.value = true;
+      } else if (
+        pagamento.value.forma_pagamento == "3" &&
+        pagamento.value.tipo_pagamento_pix == "tel"
+      ) {
+        MsgSucessoCompraPIX();
+        dialogPixTel.value = true;
+      } else if (
+        pagamento.value.forma_pagamento == "3" &&
+        pagamento.value.tipo_pagamento_pix == "qr"
+      ) {
+        MsgSucessoCompraPIX();
+        dialogPixQR.value = true;
+      } else if (pagamento.value.forma_pagamento == "4") {
+        MsgSucessoCompraBoleto();
+        dialogBoleto.value = true;
+      }
     };
 
     return {
